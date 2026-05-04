@@ -94,3 +94,77 @@ counters.forEach(counter => {
 
     updateCount();
 });
+// Sayfa yüklendiğinde yorumları otomatik listele
+document.addEventListener('DOMContentLoaded', function() {
+    listeleYorumlar();
+});
+
+// 1. Yeni Yorum Ekleme Fonksiyonu
+function yorumEkle() {
+    const input = document.getElementById('commentInput');
+    const yorumText = input.value;
+    
+    // Kullanıcı giriş yapmışsa ismini al, yapmamışsa "Anonim" yaz
+    const kullanici = localStorage.getItem('username') || "Anonim";
+
+    if (yorumText.trim() === "") {
+        alert("Lütfen boş bir yorum göndermeyin!");
+        return;
+    }
+
+    // Mevcut yorumları LocalStorage'dan çek
+    let yorumlar = JSON.parse(localStorage.getItem('tumYorumlar')) || [];
+    
+    // Yeni yorum objesini oluştur (Beğeni sayıları 0'dan başlar)
+    const yeniYorum = {
+        isim: kullanici,
+        mesaj: yorumText,
+        likes: 0,
+        dislikes: 0,
+        tarih: new Date().toLocaleString('tr-TR') // Ne zaman yazıldığını da ekleyelim
+    };
+    
+    yorumlar.push(yeniYorum);
+    
+    // Güncel listeyi kaydet ve ekrana bas
+    localStorage.setItem('tumYorumlar', JSON.stringify(yorumlar));
+    input.value = ""; 
+    listeleYorumlar();
+}
+
+// 2. Yorumları Ekranda Gösterme Fonksiyonu
+function listeleYorumlar() {
+    const list = document.getElementById('commentList');
+    if(!list) return; // Eğer HTML'de commentList yoksa hata verme
+
+    const yorumlar = JSON.parse(localStorage.getItem('tumYorumlar')) || [];
+    
+    list.innerHTML = yorumlar.map((y, index) => `
+        <div class="comment-item" style="border-bottom: 1px solid #eee; padding: 10px; margin-bottom: 10px;">
+            <div style="display:flex; justify-content: space-between;">
+                <strong>👤 ${y.isim}</strong>
+                <small style="color: gray;">${y.tarih || ''}</small>
+            </div>
+            <p style="margin: 8px 0;">${y.mesaj}</p>
+            <div class="comment-actions">
+                <button onclick="etkilesimYap(${index}, 'like')" style="cursor:pointer; border:none; background:none;">👍 ${y.likes || 0}</button>
+                <button onclick="etkilesimYap(${index}, 'dislike')" style="cursor:pointer; border:none; background:none;">👎 ${y.dislikes || 0}</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// 3. Beğenme ve Beğenmeme Fonksiyonu
+function etkilesimYap(index, tip) {
+    let yorumlar = JSON.parse(localStorage.getItem('tumYorumlar')) || [];
+    
+    if (tip === 'like') {
+        yorumlar[index].likes = (yorumlar[index].likes || 0) + 1;
+    } else if (tip === 'dislike') {
+        yorumlar[index].dislikes = (yorumlar[index].dislikes || 0) + 1;
+    }
+    
+    // Veriyi güncelle ve sayfayı yenilemeden listeyi tazele
+    localStorage.setItem('tumYorumlar', JSON.stringify(yorumlar));
+    listeleYorumlar();
+}
