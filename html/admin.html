@@ -1,11 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Iğdır Projesi | Yönetim Paneli</title>
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
-    
+    <div class="admin-container">
+        <!-- Yan Menü -->
+        <aside class="sidebar">
+            <h2>Admin Paneli</h2>
+            <ul>
+                <li><a href="#" class="active">Kontrol Paneli</a></li>
+                <li><a href="home.html#gezilecek">Gezilecek Yerler</a></li>
+                <li><a href="home.html#mutfak">Yemek Kültürü</a></li>
+                <li><a href="#">Mesajlar</a></li>
+              <li><a href="home.html">Siteye Dön</a></li>
+            </ul>
+        </aside>
+
+        <!-- Ana İçerik -->
+        <main class="content">
+            <header>
+                <h1>Hoş Geldin, Yönetici</h1>
+            </header>
+
+            <section class="stats">
+                <div class="card"><h3>Toplam Ziyaretçi</h3><p>1,250</p></div>
+                <div class="card"><h3>Eklenen Yerler</h3><p>12</p></div>
+                <div class="card"><h3>Yeni Mesajlar</h3><p>5</p></div>
+            </section>
+
+            <section class="management-table">
+                <h2>İçerik Yönetimi</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Başlık</th>
+                            <th>Kategori</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ağrı Dağı</td>
+                            <td>Doğa</td>
+                            <td>Yayında</td>
+                            <td>
+                                <button class="btn edit">Düzenle</button>
+                                <button class="btn delete">Sil</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
 </body>
 </html>
