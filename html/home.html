@@ -18,6 +18,7 @@
                 <li><a href="#gezilecek">Gezilecek Yerler</a></li>
                 <li><a href="#mutfak">Mutfak</a></li>
                 <li><a href="#turizm">Turizm</a></li>
+                <li><a href="#yorumlar">Yorumlar</a></li>
              <li><a href="admin.html">Yönetim Paneli</a></li>
             </ul>
         </nav>
@@ -222,6 +223,21 @@ ve Geleneksel Ağrı Dağı Festivali olmak üzere birçok festival düzenlenmek
 
 
     <button onclick="topFunction()" id="backToTop" title="Yukarı Çık">↑</button>
+    <!-- Yorum Bölümü -->
+<section id="yorumlar" class="comment-section">
+    <h2>Ziyaretçi Yorumları</h2>
+    
+    <!-- Yorum Yapma Formu -->
+    <div class="comment-form">
+        <textarea id="commentInput" placeholder="Düşüncelerinizi paylaşın..."></textarea>
+        <button onclick="yorumEkle()">Yorum Yap</button>
+    </div>
+
+    <!-- Yorumların Listeleneceği Yer -->
+    <div id="commentList" class="comment-list">
+        <!-- Yorumlar buraya JavaScript ile gelecek -->
+    </div>
+</section>
 
     <footer>
         <p>&copy; 2026 Iğdır Şehir Rehberi. Tüm Hakları Saklıdır.</p>
