@@ -168,3 +168,54 @@ function etkilesimYap(index, tip) {
     localStorage.setItem('tumYorumlar', JSON.stringify(yorumlar));
     listeleYorumlar();
 }
+
+/*haberlerin gelecegi fonksiyon*/
+async function getZigzagNews() {
+    const ticker = document.getElementById('zigzagTicker');
+    
+    // Elindeki gerçek ve güncel verilerle burayı güncelliyoruz
+    const newsData = [
+        { 
+            zaman: "Eylül 2025", 
+            baslik: "Doğu Anadolu'nun İlk Biyolojik Çeşitlilik Merkezi",
+            detay: "Iğdır Üniversitesi bünyesinde kurulan merkez, bölgedeki endemik bitki türlerini ve yaban hayatını koruma altına aldı.",
+        },
+        { 
+            zaman: "Haziran 2025", 
+            baslik: "'Tek Millet İki Devlet' Karayolu Projesi",
+            detay: "Iğdır ile Nahçıvan arasındaki ulaşımı kolaylaştıracak yeni modernize edilmiş karayolu projesinde sona yaklaşıldı."
+        },
+        { 
+            zaman: "Haziran 2024", 
+            baslik: "Iğdır Kayısısı Avrupa Birliği Yolunda",
+            detay: "Iğdır’ın meşhur sofralık kayısısı için yapılan coğrafi işaret tescil çalışmaları, Avrupa Birliği standartlarına taşındı."
+        },
+        { 
+            zaman: "Temmuz 2024", 
+            baslik: "Tuzluca Tuz Mağaraları'nda Uluslararası Konser",
+            detay: "Binlerce yıllık tuz mağaralarının akustiğinde gerçekleştirilen senfoni konseri, yerli ve yabancı turistlerden yoğun ilgi gördü."
+        }
+    ];
+
+    ticker.innerHTML = "";
+
+    newsData.forEach((item, index) => {
+        // Çizimindeki gibi bir aşağı bir yukarı yapmak için mod kullanıyoruz
+        const positionClass = (index % 2 === 0) ? "down" : "up";
+
+        const html = `
+            <div class="news-item-z ${positionClass}">
+                <div class="news-content">
+                    <p class="news-time">${item.zaman}</p>
+                    <h4 class="news-title">${item.baslik}</h4>
+                    <p class="news-detail" style="font-size: 0.8rem; opacity: 0.8;">${item.detay}</p>
+                </div>
+            </div>
+        `;
+        ticker.innerHTML += html;
+    });
+}
+
+document.addEventListener('DOMContentLoaded', getZigzagNews);
+
+document.addEventListener('DOMContentLoaded', getZigzagNews);
