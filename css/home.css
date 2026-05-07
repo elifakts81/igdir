@@ -891,3 +891,15 @@
 .close-btn:hover {
     color: #333;
 }
+.modal {
+    display: none; /* Başlangıçta gizli tut */
+    position: fixed; /* Ekranın üzerinde sabit kalsın */
+    z-index: 9999; /* Diğer her şeyin üstünde görünsün */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); /* Arka planı karart */
+    justify-content: center; /* İçeriği yatayda ortala */
+    align-items: center; /* İçeriği dikeyde ortala */
+}
