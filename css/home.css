@@ -169,50 +169,78 @@
         }
 
        .card img:hover, .rounded-img:hover, .float-img:hover {
-        transform: scale(1.05); /* Hafifçe öne çıkar */
+        transform: scale(1.05); 
         }
 
-        /* İlçe Kartları Izgarası */
-        .districts-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        margin-top: 2rem;
-        }
 
        /* İlçe Kart Tasarımı */
-       .district-card {
-        background: #f9f9f9;
-        padding: 2rem;
-        border-radius: 15px;
-        text-align: center;
-        border: 1px solid #eee;
-        transition: all 0.3s ease;
-        }
+.interactive-map-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
 
-        .district-card:hover {
-        background: #fff;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        transform: translateY(-5px);
-        border-color: #3498db;
-        }
+.map-container {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; 
+    height: auto;
+}
 
-        .district-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        }
+.district-path {
+    fill: #e0e0e0; /* Başta şeffaf veya açık renk */
+    stroke:#2c3e50;   /* Çizgi rengi */
+    stroke-width: 2;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
 
-        .district-card h3 {
-        color: #2c3650;
-        margin-bottom: 10px;
-        font-size: 1.5rem;
-        }
+/* Mouse üstüne gelince harita parçası boyansın */
+.district-path:hover {
+    fill: #2c3e50; /* Fotoğraftaki yeşil tonu */
+}
 
-       .district-card p {
-        color: #666;
-        line-height: 1.6;
-        font-size: 0.95rem;
-        }
+.info-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Yazıları sola yaslayarak daha düzenli bir liste yapalım */
+    text-align: left;
+    padding-left: 30px;
+}
+
+.district-list li {
+    list-style: none;
+    padding: 5px 0;
+    opacity: 0.5;
+    transition: 0.3s;
+}
+
+/* Haritaya hover yapıldığında listedeki ilgili ismi vurgulamak için aktif class'ı */
+.active-list-item {
+    opacity: 1 !important;
+    font-weight: bold;
+    color: #2c3e50;
+    text-decoration: underline;
+}
+
+.info-box {
+    margin-top: 20px;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    min-height: 150px;
+    width: 100%;
+    max-width: 350px; /* Kutunun çok yayılmasını engeller */
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Şık bir gölge */
+}
+
 
 
         /*haber kismi*/
@@ -591,6 +619,57 @@
     {
      color: #3498db; 
     }
+
+/*yonetim kartları*/
+    .yonetim-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 50px 0;
+    flex-wrap: wrap;
+}
+
+.yonetim-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    width: 400px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.yonetim-card:hover {
+    transform: translateY(-10px); /* Üzerine gelince yukarı zıplar */
+}
+
+.yonetim-img-box {
+    width: 100%;
+    height: 350px;
+}
+
+.yonetim-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fotoğrafı kutuya düzgünce yayar */
+}
+
+.yonetim-info {
+    padding: 20px;
+}
+
+.unvan {
+    color: #FF8C00; /* Iğdır turuncusu */
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.yonetim-info hr {
+    width: 50px;
+    border: 1px solid #eee;
+    margin: 10px auto;
+}
 
 /* Yorum Alanı Genel Konteynırı */
     .comment-section {

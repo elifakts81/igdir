@@ -219,3 +219,43 @@ async function getZigzagNews() {
 document.addEventListener('DOMContentLoaded', getZigzagNews);
 
 document.addEventListener('DOMContentLoaded', getZigzagNews);
+
+
+
+
+/*ilce kısmı*/
+const districtData = {
+    aralik: { 
+        title: "Aralık", 
+        text: "Üç ülkeye sınırı olan tek ilçedir. Meteor Çukuru burada yer alır. \n (Nüfus: 18.477 | Rakım: 825m)" 
+    },
+    karakoyunlu: { 
+        title: "Karakoyunlu", 
+        text: "Koç Başlı Mezarları ile ünlüdür. \n (Nüfus: 12.614 | Rakım: 847m)" 
+    },
+    tuzluca: { 
+        title: "Tuzluca", 
+        text: "Tuz Mağaraları ve sağlık turizmi merkezidir. \n (Nüfus: 21.525 | Rakım: 1.104m)" 
+    },
+    merkez: { 
+        title: "Merkez", 
+        text: "Iğdır'ın kalbi ve ekonomik merkezidir. \n (Nüfus: 152.455 | Rakım: 860m)" 
+    }
+};
+
+document.querySelectorAll('.district-path').forEach(path => {
+    path.addEventListener('mouseenter', function() {
+        const id = this.id;
+        
+        // 1. Bilgi kutusunu güncelle
+        document.getElementById('info-title').innerText = districtData[id].title;
+        document.getElementById('info-text').innerText = districtData[id].text;
+        
+        // 2. Sağdaki listede ilgili ismi vurgula
+        document.querySelectorAll('.district-list li').forEach(li => li.classList.remove('active-list-item'));
+        document.getElementById('list-' + id).classList.add('active-list-item');
+    });
+});
+
+// JS içindeki güncelleme (daha şık dursun dersen):
+document.getElementById('info-text').innerHTML = districtData[id].text;
