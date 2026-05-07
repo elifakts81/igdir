@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iğdır Projesi | Yönetim Paneli</title>
     <link rel="stylesheet" href="../css/admin.css">
+    <script>
+    // Sayfa yüklenir yüklenmez kontrol et
+    const rol = localStorage.getItem('userRole');
+    if (rol !== 'admin') {
+        alert("Bu alana sadece yöneticiler girebilir!");
+        window.location.href = "home.html"; // Yetkisizse ana sayfaya at
+    }
+</script>
 </head>
 <body>
     <div class="admin-container">
@@ -58,5 +66,21 @@
             </section>
         </main>
     </div>
+<div class="content-box">
+    <h2>Yorum Yönetimi</h2>
+<table class="admin-table">
+    <thead>
+        <tr>
+            <th>Kullanıcı</th>
+            <th>Yorum</th>
+            <th>Tarih</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody id="adminCommentList">
+        </tbody>
+</table>
+</div>
+<script src="../js/home.js"></script>
 </body>
 </html>

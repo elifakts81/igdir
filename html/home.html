@@ -22,7 +22,11 @@
                 <li><a href="#mutfak">Mutfak</a></li>
                 <li><a href="#turizm">Turizm</a></li>
                 <li><a href="#yorumlar">Yorumlar</a></li>
-             <li><a href="admin.html">Yönetim Paneli</a></li>
+             <li class="nav-item">
+    <div class="profile-circle" id="profileBtn" onclick="modalAc()">
+        <i class="fas fa-user"></i> 
+    </div>
+</li>
             </ul>
         </nav>
     </header>
@@ -359,5 +363,35 @@ ve Geleneksel Ağrı Dağı Festivali olmak üzere birçok festival düzenlenmek
         <p>&copy; 2026 Iğdır Şehir Rehberi. Tüm Hakları Saklıdır.</p>
     </footer>
     <script src="../js/home.js"></script>
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="modalKapat()">&times;</span>
+        
+        <div id="loginArea">
+            <h3>Giriş Yap</h3>
+            <input type="text" id="loginUser" placeholder="Kullanıcı Adı">
+            <input type="password" id="loginPass" placeholder="Şifre">
+            <button onclick="girisYap()" class="btn-login">Giriş Yap</button>
+            <p onclick="alanDegistir('register')" style="cursor:pointer; margin-top:10px; font-size:14px; color:#3498db;">Hesabın yok mu? Kayıt Ol</p>
+        </div>
+
+        <div id="registerArea" style="display:none;">
+            <h3>Kayıt Ol</h3>
+            <input type="text" id="regUser" placeholder="Yeni Kullanıcı Adı">
+            <input type="password" id="regPass" placeholder="Şifre Oluştur">
+            <button onclick="kayitOl()" class="btn-login" style="background-color: #3498db;">Hesap Oluştur</button>
+            <p onclick="alanDegistir('login')" style="cursor:pointer; margin-top:10px; font-size:14px; color:#3498db;">Zaten hesabım var</p>
+        </div>
+    </div>
+</div>
+<div id="loginArea">
+    <h3>Giriş Yap</h3>
+    <div id="errorMessage" class="custom-alert" style="display:none;"></div>
+    
+    <input type="text" id="loginUser" placeholder="Kullanıcı Adı">
+    <input type="password" id="loginPass" placeholder="Şifre">
+    <button onclick="girisYap()" class="btn-login">Giriş Yap</button>
+    <p onclick="alanDegistir('register')" class="toggle-text">Hesabın yok mu? Kayıt Ol</p>
+</div>
 </body>
 </html>

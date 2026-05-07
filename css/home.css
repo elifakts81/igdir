@@ -666,3 +666,228 @@
     height: auto;
   }
 }
+/* --- Profil Dairesi Tasarımı --- */
+.profile-circle {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, #3498db, #2980b9); /* Gradyan geçiş */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-circle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+}
+
+/* Eğer içinde ikon (FontAwesome) kullanacaksan boyutu */
+.profile-circle i {
+    font-size: 18px;
+}
+/* Modal'ın ekranı kaplaması */
+.modal {
+    display: none; /* Başlangıçta gizli */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* Arka planı karartır */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Beyaz kutu tasarımı */
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    width: 300px;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+/* --- Kaliteli Giriş Penceresi (Modal) Tasarımı --- */
+
+/* Modal Arka Planı */
+.modal {
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); /* Arka planı biraz daha koyu karart */
+    display: none; /* JS ile flex'e dönüştürülecek */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Giriş Kutusu (Beyaz Kart) */
+.modal-content {
+    background-color: #ffffff;
+    padding: 35px 40px; /* İçeriden daha geniş boşluk */
+    border-radius: 15px; /* Daha yuvarlak köşeler */
+    width: 380px; /* Biraz daha geniş */
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3); /* Daha belirgin ama yumuşak bir gölge */
+    position: relative;
+    
+    /* Açılış Animasyonu (Yumuşakça ölçeklenir ve solar) */
+    animation: acilisAnimasyonu 0.4s ease-out;
+}
+
+/* Başlık (Giriş Yap) */
+.modal-content h3 {
+    margin-bottom: 25px; /* Başlık ile inputlar arası boşluk */
+    color: #333;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+/* Input Alanları (Kullanıcı Adı ve Şifre) */
+.modal-content input {
+    width: 100%;
+    padding: 14px; /* Daha rahat inputlar */
+    margin-bottom: 15px; /* Inputlar arası boşluk */
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Input köşeleri yuvarlak */
+    box-sizing: border-box; /* Taşmayı önler */
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+/* Input Alanı Seçilince (Focus) */
+.modal-content input:focus {
+    border-color: #3498db; /* Admin panelinin mavisi */
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2); /* Hafif mavi parlama */
+    outline: none;
+}
+
+/* Giriş Yap Butonu */
+.modal-content button.btn-login {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    background-color: #2ecc71; /* Admin panelinin yeşili (veya istersen mavisi #3498db) */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Buton Hover (Üstüne gelince) */
+.modal-content button.btn-login:hover {
+    background-color: #27ae60;
+}
+
+/* Kapatma 'X' Butonu */
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #e74c3c; /* Hover'da kırmızı olsun */
+}
+
+/* Animasyon Tanımı */
+@keyframes acilisAnimasyonu {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+/* Özel Uyarı Paneli Tasarımı */
+.custom-alert {
+    background-color: #f8d7da; /* Hafif kırmızı arka plan */
+    color: #721c24; /* Koyu kırmızı yazı */
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    animation: sallanmaAnimasyonu 0.4s ease; /* Hata yapınca hafifçe sallansın */
+}
+
+/* Hata yapıldığında dikkat çekmesi için küçük bir sarsıntı efekti */
+@keyframes sallanmaAnimasyonu {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.toggle-text {
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #3498db;
+    font-weight: 600;
+}
+/* 1. Modal Ana Konteynırı (Başlangıçta Gizli) */
+.modal {
+    display: none; /* Sayfa ilk açıldığında görünmez yap */
+    position: fixed; /* Ekranın üzerinde sabit durması için */
+    z-index: 1000; /* Her şeyin en üstünde görünsün */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Arka planı hafif karartır */
+    backdrop-filter: blur(5px); /* Arka planı bulanıklaştırır (Daha profesyonel durur) */
+}
+
+/* 2. Pencerenin İçeriği (Beyaz Kutu) */
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto; /* Yukarıdan %10 boşluk bırak ve ortala */
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px; /* Pencere genişliği */
+    position: relative;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* 3. Kapatma Butonu (X) */
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+
+.close-btn:hover {
+    color: #333;
+}

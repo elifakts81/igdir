@@ -96,7 +96,8 @@ counters.forEach(counter => {
 });
 // Sayfa yüklendiğinde yorumları otomatik listele
 document.addEventListener('DOMContentLoaded', function() {
-    listeleYorumlar();
+    listeleYorumlarKullanici();
+    listeleYorumlarAdmin();
 });
 
 // 1. Yeni Yorum Ekleme Fonksiyonu
@@ -129,28 +130,49 @@ function yorumEkle() {
     // Güncel listeyi kaydet ve ekrana bas
     localStorage.setItem('tumYorumlar', JSON.stringify(yorumlar));
     input.value = ""; 
-    listeleYorumlar();
+   listeleYorumlarKullanici();
 }
 
-// 2. Yorumları Ekranda Gösterme Fonksiyonu
-function listeleYorumlar() {
+// 2a. Kullanıcı Sayfası İçin Listeleme (Sil butonu YOK)
+function listeleYorumlarKullanici() {
     const list = document.getElementById('commentList');
-    if(!list) return; // Eğer HTML'de commentList yoksa hata verme
+    if (!list) return;
 
     const yorumlar = JSON.parse(localStorage.getItem('tumYorumlar')) || [];
     
     list.innerHTML = yorumlar.map((y, index) => `
-        <div class="comment-item" style="border-bottom: 1px solid #eee; padding: 10px; margin-bottom: 10px;">
+        <div class="comment-item">
             <div style="display:flex; justify-content: space-between;">
                 <strong>👤 ${y.isim}</strong>
                 <small style="color: gray;">${y.tarih || ''}</small>
             </div>
             <p style="margin: 8px 0;">${y.mesaj}</p>
             <div class="comment-actions">
-                <button onclick="etkilesimYap(${index}, 'like')" style="cursor:pointer; border:none; background:none;">👍 ${y.likes || 0}</button>
-                <button onclick="etkilesimYap(${index}, 'dislike')" style="cursor:pointer; border:none; background:none;">👎 ${y.dislikes || 0}</button>
+                <button onclick="etkilesimYap(${index}, 'like')">👍 ${y.likes || 0}</button>
+                <button onclick="etkilesimYap(${index}, 'dislike')">👎 ${y.dislikes || 0}</button>
             </div>
         </div>
+    `).join('');
+}
+
+// 2b. Admin Paneli İçin Listeleme (Sil butonu VAR)
+// home.js içindeki fonksiyonu şuna güncelle:
+function listeleYorumlarAdmin() {
+    const list = document.getElementById('adminCommentList');
+    if (!list) return;
+
+    const yorumlar = JSON.parse(localStorage.getItem('tumYorumlar')) || [];
+    
+    // innerHTML içeriğini tablo satırlarına (tr) dönüştürüyoruz
+    list.innerHTML = yorumlar.map((y, index) => `
+        <tr>
+            <td><strong>👤 ${y.isim}</strong></td>
+            <td>${y.mesaj}</td>
+            <td><small>${y.tarih || ''}</small></td>
+            <td>
+                <button onclick="yorumuSil(${index})" class="btn-sil">Kalıcı Sil</button>
+            </td>
+        </tr>
     `).join('');
 }
 
@@ -166,7 +188,24 @@ function etkilesimYap(index, tip) {
     
     // Veriyi güncelle ve sayfayı yenilemeden listeyi tazele
     localStorage.setItem('tumYorumlar', JSON.stringify(yorumlar));
-    listeleYorumlar();
+   listeleYorumlarKullanici();
+}
+// 4. Admin Yorum Silme Fonksiyonu
+function yorumuSil(index) {
+    if (confirm("Bu yorumu silmek istediğinize emin misiniz?")) {
+        // 1. Mevcut yorumları çek
+        let yorumlar = JSON.parse(localStorage.getItem('tumYorumlar')) || [];
+        
+        // 2. Belirlenen index'teki yorumu diziden çıkar
+        yorumlar.splice(index, 1);
+        
+        // 3. Güncel listeyi tekrar kaydet
+        localStorage.setItem('tumYorumlar', JSON.stringify(yorumlar));
+        
+        // 4. Ekranı yenile
+        listeleYorumlar();
+        listeleYorumlarAdmin();
+    }
 }
 
 /*haberlerin gelecegi fonksiyon*/
@@ -219,3 +258,135 @@ async function getZigzagNews() {
 document.addEventListener('DOMContentLoaded', getZigzagNews);
 
 document.addEventListener('DOMContentLoaded', getZigzagNews);
+// Modal penceresini açar
+function modalAc() {
+    document.getElementById('loginModal').style.display = 'flex';
+}
+
+// Modal penceresini kapatır
+function modalKapat() {
+    document.getElementById('loginModal').style.display = 'none';
+}
+
+// Giriş bilgilerini kontrol eden ana fonksiyon
+function sorgulaVeGirisYap() {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+
+    // YÖNETİCİ KONTROLÜ
+    if (user === "admin" && pass === "1234") {
+        localStorage.setItem('userRole', 'admin');
+        localStorage.setItem('aktifKullanici', 'Yönetici');
+        alert("Yönetici girişi başarılı! Panale gidiyorsunuz...");
+        window.location.href = "admin.html"; // Seni admin sayfasına uçurur
+    } 
+    // NORMAL KULLANICI KONTROLÜ
+    else if (user.trim() !== "") {
+        localStorage.setItem('userRole', 'user');
+        localStorage.setItem('aktifKullanici', user);
+        alert("Hoş geldin, " + user);
+        modalKapat();
+        location.reload(); // Sayfayı yenile ki sistem seni tanısın
+    } else {
+        alert("Lütfen bir kullanıcı adı girin!");
+    }
+}
+// Giriş ve Kayıt alanları arasında geçiş yapar
+function alanDegistir(hedef) {
+    if(hedef === 'register') {
+        document.getElementById('loginArea').style.display = 'none';
+        document.getElementById('registerArea').style.display = 'block';
+    } else {
+        document.getElementById('loginArea').style.display = 'block';
+        document.getElementById('registerArea').style.display = 'none';
+    }
+}
+
+// Yeni Kullanıcı Kaydetme
+function kayitOl() {
+    const user = document.getElementById('regUser').value;
+    const pass = document.getElementById('regPass').value;
+
+    if (user === "" || pass === "") {
+        alert("Lütfen tüm alanları doldurun!");
+        return;
+    }
+
+    let kullanicilar = JSON.parse(localStorage.getItem('kullanicilar')) || [];
+    
+    // Aynı isimde kullanıcı var mı kontrolü
+    if (kullanicilar.find(u => u.username === user)) {
+        alert("Bu kullanıcı adı zaten alınmış!");
+        return;
+    }
+
+    kullanicilar.push({ username: user, password: pass, role: 'user' });
+    localStorage.setItem('kullanicilar', JSON.stringify(kullanicilar));
+    
+    alert("Kayıt başarılı! Şimdi giriş yapabilirsiniz.");
+    alanDegistir('login');
+}
+
+// Giriş Yapma
+function girisYap() {
+    const user = document.getElementById('loginUser').value;
+    const pass = document.getElementById('loginPass').value;
+
+    // Önce Admin mi diye bak
+    if (user === "admin" && pass === "1234") {
+        localStorage.setItem('userRole', 'admin');
+        localStorage.setItem('aktifKullanici', 'Yönetici');
+        window.location.href = "admin.html";
+        return;
+    }
+
+    // Kayıtlı kullanıcıları kontrol et
+    let kullanicilar = JSON.parse(localStorage.getItem('kullanicilar')) || [];
+    const bulunan = kullanicilar.find(u => u.username === user && u.password === pass);
+
+    if (bulunan) {
+        localStorage.setItem('userRole', 'user');
+        localStorage.setItem('aktifKullanici', user);
+        alert("Hoş geldin, " + user);
+        location.reload();
+    } else {
+        alert("Kullanıcı adı veya şifre hatalı!");
+    }
+}
+// Hata mesajını şık bir şekilde gösteren yardımcı fonksiyon
+function hataGoster(mesaj) {
+    const errorDiv = document.getElementById('errorMessage');
+    errorDiv.innerText = mesaj;
+    errorDiv.style.display = 'block';
+
+    // 3 saniye sonra mesajın kendi kendine kaybolmasını istersen:
+    /*
+    setTimeout(() => {
+        errorDiv.style.display = 'none';
+    }, 3000);
+    */
+}
+
+function girisYap() {
+    const user = document.getElementById('loginUser').value;
+    const pass = document.getElementById('loginPass').value;
+
+    if (user === "admin" && pass === "1234") {
+        localStorage.setItem('userRole', 'admin');
+        window.location.href = "admin.html";
+        return;
+    }
+
+    let kullanicilar = JSON.parse(localStorage.getItem('kullanicilar')) || [];
+    const bulunan = kullanicilar.find(u => u.username === user && u.password === pass);
+
+    if (bulunan) {
+        localStorage.setItem('userRole', 'user');
+        localStorage.setItem('aktifKullanici', user);
+        window.location.reload(); 
+    } else {
+        // İŞTE BURADA: Standart alert yerine bizim şık kutuyu çağırıyoruz
+        hataGoster("Kullanıcı adı veya şifre hatalı!");
+    }
+}
+
