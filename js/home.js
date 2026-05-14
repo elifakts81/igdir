@@ -258,135 +258,45 @@ async function getZigzagNews() {
 document.addEventListener('DOMContentLoaded', getZigzagNews);
 
 document.addEventListener('DOMContentLoaded', getZigzagNews);
-// Modal penceresini açar
-function modalAc() {
-    document.getElementById('loginModal').style.display = 'flex';
-}
 
-// Modal penceresini kapatır
-function modalKapat() {
-    document.getElementById('loginModal').style.display = 'none';
-}
 
-// Giriş bilgilerini kontrol eden ana fonksiyon
-function sorgulaVeGirisYap() {
-    const user = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
 
-    // YÖNETİCİ KONTROLÜ
-    if (user === "admin" && pass === "1234") {
-        localStorage.setItem('userRole', 'admin');
-        localStorage.setItem('aktifKullanici', 'Yönetici');
-        alert("Yönetici girişi başarılı! Panale gidiyorsunuz...");
-        window.location.href = "admin.html"; // Seni admin sayfasına uçurur
-    } 
-    // NORMAL KULLANICI KONTROLÜ
-    else if (user.trim() !== "") {
-        localStorage.setItem('userRole', 'user');
-        localStorage.setItem('aktifKullanici', user);
-        alert("Hoş geldin, " + user);
-        modalKapat();
-        location.reload(); // Sayfayı yenile ki sistem seni tanısın
-    } else {
-        alert("Lütfen bir kullanıcı adı girin!");
+
+
+/*ilce kısmı*/
+const districtData = {
+    aralik: { 
+        title: "Aralık", 
+        text: "Üç ülkeye sınırı olan tek ilçedir. Meteor Çukuru burada yer alır. \n (Nüfus: 18.477 | Rakım: 825m)" 
+    },
+    karakoyunlu: { 
+        title: "Karakoyunlu", 
+        text: "Koç Başlı Mezarları ile ünlüdür. \n (Nüfus: 12.614 | Rakım: 847m)" 
+    },
+    tuzluca: { 
+        title: "Tuzluca", 
+        text: "Tuz Mağaraları ve sağlık turizmi merkezidir. \n (Nüfus: 21.525 | Rakım: 1.104m)" 
+    },
+    merkez: { 
+        title: "Merkez", 
+        text: "Iğdır'ın kalbi ve ekonomik merkezidir. \n (Nüfus: 152.455 | Rakım: 860m)" 
     }
-}
-// Giriş ve Kayıt alanları arasında geçiş yapar
-function alanDegistir(hedef) {
-    if(hedef === 'register') {
-        document.getElementById('loginArea').style.display = 'none';
-        document.getElementById('registerArea').style.display = 'block';
-    } else {
-        document.getElementById('loginArea').style.display = 'block';
-        document.getElementById('registerArea').style.display = 'none';
-    }
-}
+};
 
-// Yeni Kullanıcı Kaydetme
-function kayitOl() {
-    const user = document.getElementById('regUser').value;
-    const pass = document.getElementById('regPass').value;
+document.querySelectorAll('.district-path').forEach(path => {
+    path.addEventListener('mouseenter', function() {
+        const id = this.id;
+        
+        // 1. Bilgi kutusunu güncelle
+        document.getElementById('info-title').innerText = districtData[id].title;
+        document.getElementById('info-text').innerText = districtData[id].text;
+        
+        // 2. Sağdaki listede ilgili ismi vurgula
+        document.querySelectorAll('.district-list li').forEach(li => li.classList.remove('active-list-item'));
+        document.getElementById('list-' + id).classList.add('active-list-item');
+    });
+});
 
-    if (user === "" || pass === "") {
-        alert("Lütfen tüm alanları doldurun!");
-        return;
-    }
-
-    let kullanicilar = JSON.parse(localStorage.getItem('kullanicilar')) || [];
-    
-    // Aynı isimde kullanıcı var mı kontrolü
-    if (kullanicilar.find(u => u.username === user)) {
-        alert("Bu kullanıcı adı zaten alınmış!");
-        return;
-    }
-
-    kullanicilar.push({ username: user, password: pass, role: 'user' });
-    localStorage.setItem('kullanicilar', JSON.stringify(kullanicilar));
-    
-    alert("Kayıt başarılı! Şimdi giriş yapabilirsiniz.");
-    alanDegistir('login');
-}
-
-// Giriş Yapma
-function girisYap() {
-    const user = document.getElementById('loginUser').value;
-    const pass = document.getElementById('loginPass').value;
-
-    // Önce Admin mi diye bak
-    if (user === "admin" && pass === "1234") {
-        localStorage.setItem('userRole', 'admin');
-        localStorage.setItem('aktifKullanici', 'Yönetici');
-        window.location.href = "admin.html";
-        return;
-    }
-
-    // Kayıtlı kullanıcıları kontrol et
-    let kullanicilar = JSON.parse(localStorage.getItem('kullanicilar')) || [];
-    const bulunan = kullanicilar.find(u => u.username === user && u.password === pass);
-
-    if (bulunan) {
-        localStorage.setItem('userRole', 'user');
-        localStorage.setItem('aktifKullanici', user);
-        alert("Hoş geldin, " + user);
-        location.reload();
-    } else {
-        alert("Kullanıcı adı veya şifre hatalı!");
-    }
-}
-// Hata mesajını şık bir şekilde gösteren yardımcı fonksiyon
-function hataGoster(mesaj) {
-    const errorDiv = document.getElementById('errorMessage');
-    errorDiv.innerText = mesaj;
-    errorDiv.style.display = 'block';
-
-    // 3 saniye sonra mesajın kendi kendine kaybolmasını istersen:
-    /*
-    setTimeout(() => {
-        errorDiv.style.display = 'none';
-    }, 3000);
-    */
-}
-
-function girisYap() {
-    const user = document.getElementById('loginUser').value;
-    const pass = document.getElementById('loginPass').value;
-
-    if (user === "admin" && pass === "1234") {
-        localStorage.setItem('userRole', 'admin');
-        window.location.href = "admin.html";
-        return;
-    }
-
-    let kullanicilar = JSON.parse(localStorage.getItem('kullanicilar')) || [];
-    const bulunan = kullanicilar.find(u => u.username === user && u.password === pass);
-
-    if (bulunan) {
-        localStorage.setItem('userRole', 'user');
-        localStorage.setItem('aktifKullanici', user);
-        window.location.reload(); 
-    } else {
-        // İŞTE BURADA: Standart alert yerine bizim şık kutuyu çağırıyoruz
-        hataGoster("Kullanıcı adı veya şifre hatalı!");
-    }
-}
+// JS içindeki güncelleme (daha şık dursun dersen):
+document.getElementById('info-text').innerHTML = districtData[id].text;
 
