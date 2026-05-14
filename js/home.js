@@ -156,7 +156,6 @@ function listeleYorumlarKullanici() {
 }
 
 // 2b. Admin Paneli İçin Listeleme (Sil butonu VAR)
-// home.js içindeki fonksiyonu şuna güncelle:
 function listeleYorumlarAdmin() {
     const list = document.getElementById('adminCommentList');
     if (!list) return;
