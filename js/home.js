@@ -96,7 +96,8 @@ counters.forEach(counter => {
 });
 // Sayfa yüklendiğinde yorumları otomatik listele
 document.addEventListener('DOMContentLoaded', function() {
-    listeleYorumlar();
+    listeleYorumlarKullanici();
+    listeleYorumlarAdmin();
 });
 
 // 1. Yeni Yorum Ekleme Fonksiyonu
@@ -129,28 +130,48 @@ function yorumEkle() {
     // Güncel listeyi kaydet ve ekrana bas
     localStorage.setItem('tumYorumlar', JSON.stringify(yorumlar));
     input.value = ""; 
-    listeleYorumlar();
+   listeleYorumlarKullanici();
 }
 
-// 2. Yorumları Ekranda Gösterme Fonksiyonu
-function listeleYorumlar() {
+// 2a. Kullanıcı Sayfası İçin Listeleme (Sil butonu YOK)
+function listeleYorumlarKullanici() {
     const list = document.getElementById('commentList');
-    if(!list) return; // Eğer HTML'de commentList yoksa hata verme
+    if (!list) return;
 
     const yorumlar = JSON.parse(localStorage.getItem('tumYorumlar')) || [];
     
     list.innerHTML = yorumlar.map((y, index) => `
-        <div class="comment-item" style="border-bottom: 1px solid #eee; padding: 10px; margin-bottom: 10px;">
+        <div class="comment-item">
             <div style="display:flex; justify-content: space-between;">
                 <strong>👤 ${y.isim}</strong>
                 <small style="color: gray;">${y.tarih || ''}</small>
             </div>
             <p style="margin: 8px 0;">${y.mesaj}</p>
             <div class="comment-actions">
-                <button onclick="etkilesimYap(${index}, 'like')" style="cursor:pointer; border:none; background:none;">👍 ${y.likes || 0}</button>
-                <button onclick="etkilesimYap(${index}, 'dislike')" style="cursor:pointer; border:none; background:none;">👎 ${y.dislikes || 0}</button>
+                <button onclick="etkilesimYap(${index}, 'like')">👍 ${y.likes || 0}</button>
+                <button onclick="etkilesimYap(${index}, 'dislike')">👎 ${y.dislikes || 0}</button>
             </div>
         </div>
+    `).join('');
+}
+
+// 2b. Admin Paneli İçin Listeleme (Sil butonu VAR)
+function listeleYorumlarAdmin() {
+    const list = document.getElementById('adminCommentList');
+    if (!list) return;
+
+    const yorumlar = JSON.parse(localStorage.getItem('tumYorumlar')) || [];
+    
+    // innerHTML içeriğini tablo satırlarına (tr) dönüştürüyoruz
+    list.innerHTML = yorumlar.map((y, index) => `
+        <tr>
+            <td><strong>👤 ${y.isim}</strong></td>
+            <td>${y.mesaj}</td>
+            <td><small>${y.tarih || ''}</small></td>
+            <td>
+                <button onclick="yorumuSil(${index})" class="btn-sil">Kalıcı Sil</button>
+            </td>
+        </tr>
     `).join('');
 }
 
@@ -166,7 +187,24 @@ function etkilesimYap(index, tip) {
     
     // Veriyi güncelle ve sayfayı yenilemeden listeyi tazele
     localStorage.setItem('tumYorumlar', JSON.stringify(yorumlar));
-    listeleYorumlar();
+   listeleYorumlarKullanici();
+}
+// 4. Admin Yorum Silme Fonksiyonu
+function yorumuSil(index) {
+    if (confirm("Bu yorumu silmek istediğinize emin misiniz?")) {
+        // 1. Mevcut yorumları çek
+        let yorumlar = JSON.parse(localStorage.getItem('tumYorumlar')) || [];
+        
+        // 2. Belirlenen index'teki yorumu diziden çıkar
+        yorumlar.splice(index, 1);
+        
+        // 3. Güncel listeyi tekrar kaydet
+        localStorage.setItem('tumYorumlar', JSON.stringify(yorumlar));
+        
+        // 4. Ekranı yenile
+        listeleYorumlar();
+        listeleYorumlarAdmin();
+    }
 }
 
 /*haberlerin gelecegi fonksiyon*/
@@ -223,6 +261,7 @@ document.addEventListener('DOMContentLoaded', getZigzagNews);
 
 
 
+
 /*ilce kısmı*/
 const districtData = {
     aralik: { 
@@ -259,3 +298,4 @@ document.querySelectorAll('.district-path').forEach(path => {
 
 // JS içindeki güncelleme (daha şık dursun dersen):
 document.getElementById('info-text').innerHTML = districtData[id].text;
+

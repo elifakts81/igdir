@@ -686,6 +686,10 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
+    /*Yorum metinleri <p> etiketi içinde geliyor. Bu kod ile sadece yorum kutusunun içindeki yazıları sola yaslamış oluyoruz.*/
+    .comment-item p {
+    text-align: left;
+}
 
 /* Kullanıcı Adı ve Tarih Kısmı */
     .comment-item strong {
