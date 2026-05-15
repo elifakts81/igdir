@@ -351,33 +351,6 @@
     margin-top: 5px;
     line-height: 1.3;
 }
-
-   .genelbilgi-content{
-         flex: 1;
-         min-width: 300px;
-
-        }
-
-        .genelbilgi-wrapper{
-            display: flex;
-            align-items: flex-start;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .harita-kutusu {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-           }
-
-           .harita-kutusu img {
-           max-width: 100%;
-           height: auto;
-           border-radius: 8px;
-           box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-           }
    
         /* İçerik Alanları */
         .container {
@@ -461,6 +434,27 @@
             margin-bottom: 10px;
             color: #2c3e50;
         }
+
+        /* Sadece Gezilecek Yerler kısmına özel grid ayarı */
+        .gezilecek-grid {
+        /* Tek satıra 3 kart sığdırır (İsteğe göre repeat(4, 1fr) yapabilirsin) */
+        grid-template-columns: repeat(6, 1fr); 
+        gap: 20px;
+        justify-items: center; /* Kartları ortalar */
+        }
+
+        /* Kartların maksimum genişliğini kısıtlayarak devasa görünmelerini engelliyoruz */
+        .gezilecek-grid .card {
+        max-width: 320px; /* Kartların genişliğini buradan daraltabilirsin */
+        width: 100%;
+         } 
+
+        /* Mobil uyum: Ekran küçüldüğünde kartlar patlamasın diye tek sütuna düşür */
+        @media (max-width: 992px) {
+        .gezilecek-grid {
+        grid-template-columns: repeat(2, 1fr);
+        }
+       }
 
         /* Mutfak Bölümü (Flex) */
             .bg-white {
