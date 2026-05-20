@@ -214,24 +214,29 @@ async function getZigzagNews() {
     // Elindeki gerçek ve güncel verilerle burayı güncelliyoruz
     const newsData = [
         { 
-            zaman: "Eylül 2025", 
-            baslik: "Doğu Anadolu'nun İlk Biyolojik Çeşitlilik Merkezi",
-            detay: "Iğdır Üniversitesi bünyesinde kurulan merkez, bölgedeki endemik bitki türlerini ve yaban hayatını koruma altına aldı.",
+            zaman: "M.Ö. 800'ler", 
+            baslik: "Urartu Krallığı",
+            detay: " Iğdır Ovası'ndaki ilk sulama kanalları ve yerleşimlerin temeli bu dönemde atıldı.",
         },
         { 
-            zaman: "Haziran 2025", 
-            baslik: "'Tek Millet İki Devlet' Karayolu Projesi",
-            detay: "Iğdır ile Nahçıvan arasındaki ulaşımı kolaylaştıracak yeni modernize edilmiş karayolu projesinde sona yaklaşıldı."
+            zaman: "11. Yüzyıl", 
+            baslik: "'Selçuklu ve Saltuklu Dönemi",
+            detay: "1071 Malazgirt sonrası bölge Türk-İslam kültürüyle tanışmaya başladı."
         },
         { 
-            zaman: "Haziran 2024", 
-            baslik: "Iğdır Kayısısı Avrupa Birliği Yolunda",
-            detay: "Iğdır’ın meşhur sofralık kayısısı için yapılan coğrafi işaret tescil çalışmaları, Avrupa Birliği standartlarına taşındı."
+            zaman: "14. - 15. Yüzyıl", 
+            baslik: "Karakoyunlu Devleti",
+            detay: " Iğdır'ın simgesi olan meşhur koç başlı mezar taşları bu dönemden miras kalmıştır."
         },
         { 
-            zaman: "Temmuz 2024", 
-            baslik: "Tuzluca Tuz Mağaraları'nda Uluslararası Konser",
-            detay: "Binlerce yıllık tuz mağaralarının akustiğinde gerçekleştirilen senfoni konseri, yerli ve yabancı turistlerden yoğun ilgi gördü."
+            zaman: "16. Yüzyıl", 
+            baslik: "Osmanlı İmparatorluğu",
+            detay: " Kanuni Sultan Süleyman döneminde Osmanlı topraklarına katılan bölge, stratejik bir kale görevi gördü."
+        },
+        {
+            zaman : "14 Kasım  1920",
+            baslik : "Türkiye Cumhuriyeti",
+            detay : "Kazım Karabekir komutasındaki ordularla özgürlüğüne kavuşan Iğdır, 'Güneşin Doğduğu Şehir' unvanını aldı."
         }
     ];
 
@@ -260,8 +265,6 @@ document.addEventListener('DOMContentLoaded', getZigzagNews);
 
 
 
-
-
 /*ilce kısmı*/
 const districtData = {
     aralik: { 
@@ -281,6 +284,7 @@ const districtData = {
         text: "Iğdır'ın kalbi ve ekonomik merkezidir. \n (Nüfus: 152.455 | Rakım: 860m)" 
     }
 };
+
 
 document.querySelectorAll('.district-path').forEach(path => {
     path.addEventListener('mouseenter', function() {
