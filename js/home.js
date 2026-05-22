@@ -300,6 +300,18 @@ document.querySelectorAll('.district-path').forEach(path => {
     });
 });
 
-// JS içindeki güncelleme (daha şık dursun dersen):
-document.getElementById('info-text').innerHTML = districtData[id].text;
+// Sayfadaki tüm elementler tamamen yüklendikten sonra kodu çalıştırır
+window.addEventListener('DOMContentLoaded', () => {
+    window.onscroll = function() { updateProgressBar() };
 
+    function updateProgressBar() {
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        
+        var bar = document.getElementById("progressBar");
+        if (bar) {
+            bar.style.width = scrolled + "%";
+        }
+    }
+});

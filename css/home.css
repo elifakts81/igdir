@@ -37,6 +37,25 @@
             z-index: 1000;
         }
 
+        /* İlerleme çubuğunun dış kapsayıcısı */
+        .scroll-progress-container {
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         width: 100%;
+         height: 4px; /* İncecik, göz yormayan yükseklik */
+         background: transparent; /* Arka planı şeffaf yapıyoruz ki boşken görünmesin */
+         z-index: 99999; /* Her zaman en üstte kalması için */
+        }
+
+        /* Dolan iç çubuk */
+        .scroll-progress-bar {
+         height: 100%;
+         width: 0%; /* Başlangıçta sıfır */
+         background: #3498db; /* Sitedeki buton renginizle (kırmızı/turuncu) uyumlu ton */
+         transition: width 0.1s ease-out; /* Kaydırırken yumuşak hareket etmesi için */
+        }
+
         .nufus-direct-area {
            text-align: center;
            padding: 60px 0;
@@ -380,6 +399,7 @@
             transform: translateX(-50%);
         }
 
+
         /* Kartlar (Grid) */
         .card-grid {
             display: grid;
@@ -447,33 +467,92 @@
         }
 
         .card-info p {
-         font-size: 0.75rem; /* Uzun yazıların taşmaması için metni küçülttük */
+         font-size: 0.75rem; 
          line-height: 1.3;
          color: #555;
          margin-bottom: 10px;
         }
 
-        /* Sadece Gezilecek Yerler kısmına özel grid ayarı */
-        .gezilecek-grid {
+       /* Sadece Gezilecek Yerler kısmına özel grid ayarı */
+       .gezilecek-grid {
          display: grid;
-         grid-template-columns: repeat(6, 1fr); 
-         gap: 15px;
-    
+         grid-template-columns: repeat(4, 1fr); /* Yan yana 3 kart listeler, gerisi alt satıra geçer */
+         gap: 20px; /* Kartların arasındaki boşluğu artırarak nefes aldırır */
+         margin: 0 auto;
+         padding: 20px 0;
+         max-width: 1500px;
         }
 
-        /* Kartların maksimum genişliğini kısıtlayarak devasa görünmelerini engelliyoruz */
-        .gezilecek-grid .card {
-        max-width: 320px; /* Kartların genişliğini buradan daraltabilirsin */
-        width: 300%;
-        
-         } 
 
-        /* Mobil uyum: Ekran küçüldüğünde kartlar patlamasın diye tek sütuna düşür */
-        @media (max-width: 992px) {
-        .gezilecek-grid {
-        grid-template-columns: repeat(2, 1fr);
-        }
-       }
+      .gezilecek-grid .card {
+        width: 100%; /* Üst üste binmeyi engellemek için %100 olmalı */
+        margin: 0 auto; 
+      }
+
+      /* Kart Görselleri İçin Düzeltme */
+      .card img {
+        width: 100%;
+        height: 180px; 
+        object-fit: cover;
+     }
+
+    /* Mobil uyum: */
+     @media (max-width: 992px) {
+     .gezilecek-grid {
+         grid-template-columns: repeat(2, 1fr);
+     }
+    }
+
+/* Otel Yönlendirme Alanı */
+.otel-yonlendirme {
+    grid-column: span 4; /* 4 sütunlu grid yapısında tam genişlik kaplar */
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.otel-icerik h4 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.otel-icerik p {
+    font-size: 0.9rem;
+    color: #eceff1;
+    max-width: 700px;
+}
+
+.otel-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    white-space: nowrap;
+}
+
+.otel-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Mobil Uyum */
+@media (max-width: 768px) {
+    .otel-yonlendirme {
+        grid-column: span 1;
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+}
 
         /* Mutfak Bölümü (Flex) */
             .bg-white {
@@ -544,12 +623,36 @@
          margin-bottom: 10px;
         }
 
+
+        .history-content{
+         margin-top: 20px;
+         line-height: 1.8;
+         text-align: left;
+         display: flex;
+         align-items: flex-start;
+         gap: 20px;
+        }
  
+        .history-content img{
+            max-width: 300px;
+            height: auto;
+            border-radius: 2%;
+        }
+
+        .history-content img:hover{
+            transform: translateY(-10px);
+        }
+
+        .history-content p{
+            flex: 1;
+        }
+
         .history-content::after {
          content: "";
          display: table;
          clear: both;
         }
+
         .ozel-kelime {
         color: #3498db;         
         text-decoration: none;   /* Altındaki çizgiyi kaldırır */
@@ -561,6 +664,7 @@
          color: #217ab5;         
          text-decoration: underline; /* Fareyle üzerine gelince altı çizilsin */
          }
+
         /* Footer */
         footer {
             text-align: center;
