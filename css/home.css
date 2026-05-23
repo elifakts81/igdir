@@ -247,7 +247,7 @@
 
 /* Haritaya hover yapıldığında listedeki ilgili ismi vurgulamak için aktif class'ı */
 .active-list-item {
-    opacity: 1 !important;
+    opacity: 1 ;
     font-weight: bold;
     color: #2c3e50;
     text-decoration: underline;
@@ -319,7 +319,6 @@
     color: rgb(0, 0, 0); /* Yazı rengini garantiye alalım */
 }
 
-/* Boşluğu sildik: .ajanda-baslik::after */
 .ajanda-baslik::after {
     content: '';
     width: 50px;
@@ -377,7 +376,7 @@
         /* İçerik Alanları */
         .container {
             padding: 3rem 5%;
-            max-width: 1200px;
+            max-width: 1600px;
             margin: auto;
         }
 
@@ -554,104 +553,176 @@
     }
 }
 
-        /* Mutfak Bölümü (Flex) */
-            .bg-white {
-            background: #fff;
-        }
+/* MUTFAK BÖLÜMÜ */
+#mutfak {
+    background-color: transparent;
+    padding: 100px 0;
+    scroll-margin-top: 100px;
+}
 
-           .mutfak-item {
-           display: flex;
-           align-items: center;
-           gap: 50px;
-           flex-wrap: wrap;
-           margin-bottom: 60px; 
-        }
+#mutfak .container {
+    width: 100% !important;
+    max-width: 1600px !important; 
+    padding: 3rem 2% !important; 
+    margin: 0 auto !important;
+}
 
-           .flex-content {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            
-        }
+/* Başlık */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 70px;
+    color: #24364b;
+    position: relative;
+}
 
-           .text-area { 
-            flex: 1.5; 
-            min-width: 300px; 
-            text-align: justify;
-        }
-           .image-area { 
-            flex: 1; 
-            min-width: 300px;
-            display: flex;
-            justify-content: center; 
-        }
-
-           .rounded-img {
-            width: 80%;         
-            max-width: 450px;   
-            height: auto;        
-            border-radius: 12px;
-            display: block;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            }
-
-            .mutfak-item:nth-child(even) {
-            flex-direction: row-reverse;
-            }
+.section-title::after {
+    content: "";
+    width: 80px;
+    height: 4px;
+    background: #3498db;
+    display: block;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
 
 
-         .urartu-img  {
-            width: 60%;
-            height: 90%;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            
-        }
-         
-        .float-img {
-         float: right;            
-         width: 300px;           
-         margin-right: 20px;     
-         margin-bottom: 10px;    
-         border-radius: 8px;     
-         border: 2px solid #ddd; 
-       }
+.flex-content {
+    display: flex;
+    flex-direction: row;  /* Kartları yan yana dizer */
+    flex-wrap: wrap;      /* 2'şerli dizilip aşağı kaysınlar diye */
+    gap: 40px;            /* Kartların arasındaki yatay ve dikey boşluk */
+    justify-content: center;
+}
 
+.mutfak-item {
+    display: flex;
+    flex-direction: row !important; 
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+    flex: 1 1 calc(50% - 40px);
+    max-width: 750px; 
+    box-sizing: border-box;
+}
 
-        .float-img-right {
-         margin-left: 20px;
-         margin-bottom: 10px;
-        }
+.mutfak-item:hover {
+    transform: translateY(-5px);
+}
 
+.mutfak-item:nth-child(even) {
+    flex-direction: row !important; 
+}
 
-        .history-content{
-         margin-top: 20px;
-         line-height: 1.8;
-         text-align: left;
-         display: flex;
-         align-items: flex-start;
-         gap: 20px;
-        }
- 
-        .history-content img{
-            max-width: 300px;
-            height: auto;
-            border-radius: 2%;
-        }
+/* Yazı Alanı */
+.text-area {
+    flex: 1.5; 
+}
 
-        .history-content img:hover{
-            transform: translateY(-10px);
-        }
+.text-area h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #24364b;
+}
 
-        .history-content p{
-            flex: 1;
-        }
+.text-area p {
+    line-height: 1.9;
+    color: #444;
+    text-align: justify;
+}
 
-        .history-content::after {
-         content: "";
-         display: table;
-         clear: both;
-        }
+/* Görsel */
+.image-area {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.rounded-img {
+    width: 100%;
+    max-width: 280px; /* Kartın içinde fotoğrafın çok devasa olmaması için sabitledik */
+    height: 200px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    transition: 0.3s ease;
+}
+
+.rounded-img:hover {
+    transform: scale(1.03);
+}
+
+/* MOBİL UYUMLULUK (Telefonlarda düzgün dursun diye) */
+@media (max-width: 992px) {
+    .flex-content {
+        flex-direction: column;
+    }
+    .mutfak-item {
+        flex: 1 1 100%;
+        max-width: 100%;
+        flex-direction: column !important; /* Mobilde dikey olsunlar */
+    }
+}
+       /*tarih kısmı*/
+
+    .tarihce-flex {
+    display: flex;
+    align-items: flex-start; /* Fotoğraf ve metni dikey eksende ortalar */
+    justify-content: space-between;
+    gap: 50px; /* Metin kutusu ile fotoğraf arasındaki boşluk */
+    margin-top: 40px;
+}
+
+/* Paragrafların dikeyde alt alta düzgünce sıralanmasını sağlayan alan */
+.history-text {
+    flex: 1.6; 
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+   
+}
+
+.history-text p {
+    line-height: 1.8;
+    text-align: left; 
+    margin: 0;
+}
+
+/* Fotoğraf kutusu */
+.history-image {
+    flex: 0.8;
+    display: flex;
+    justify-content: center;
+}
+
+.history-image img {
+    width: 100% !important;
+    max-width: 350px !important; 
+    height: auto !important;
+    border-radius: 15px !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1) !important;
+    transition: 0.3s ease !important;
+}
+
+.history-image img:hover {
+    transform: translateY(-10px);
+}
+
+/* Mobil Ekranlar İçin Uyum */
+@media (max-width: 992px) {
+    .tarihce-flex {
+        flex-direction: column; /* Mobilde fotoğraf yazının altına kayar */
+        gap: 30px;
+    }
+    .history-image img {
+        max-width: 100%;
+    }
+}
 
         .ozel-kelime {
         color: #3498db;         
@@ -809,7 +880,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
-    /*Yorum metinleri <p> etiketi içinde geliyor. Bu kod ile sadece yorum kutusunun içindeki yazıları sola yaslamış oluyoruz.*/
+
     .comment-item p {
     text-align: left;
 }
