@@ -49,52 +49,62 @@ async function getNamazVakitleri() {
 getNamazVakitleri();
 
 // Yukarı kaydırma butonu
-const mybutton = document.getElementById("backToTop");
+const topBtn = document.getElementById("topBtn");
 
-
-window.onscroll = function() {
-    scrollFunction();
-};
-
-function scrollFunction() {
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        mybutton.style.display = "block";
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        topBtn.style.display = "block";
     } else {
-        mybutton.style.display = "none";
+        topBtn.style.display = "none";
     }
-}
-
-
-function topFunction() {
+});
+topBtn.addEventListener("click", () => {
     window.scrollTo({
         top: 0,
-        behavior: 'smooth' // Yumuşak kayma efekti
+        behavior: "smooth"
     });
-}
+});
 
-//nüfus sayımı
+/*nüfus*/
 const counters = document.querySelectorAll('.counter');
-const speed = 200; 
 
-counters.forEach(counter => {
-    const updateCount = () => {
-        const target = +counter.getAttribute('data-target'); 
-        const count = +counter.innerText.replace(/\./g, '');
-        const inc = target / speed;
+const startCounter = (counter) => {
+    const target = +counter.getAttribute('data-target');
+    let count = 0;
+
+    const step = Math.ceil(target / 60);
+
+    const update = () => {
+        count += step;
 
         if (count < target) {
-        
-            counter.innerText = Math.ceil(count + inc).toLocaleString('tr-TR');
-            setTimeout(updateCount, 1);
+            counter.innerText = count.toLocaleString('tr-TR');
+            requestAnimationFrame(update);
         } else {
-        
             counter.innerText = target.toLocaleString('tr-TR');
         }
     };
 
-    updateCount();
+    update();
+};
+
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            startCounter(entry.target);
+            observer.unobserve(entry.target); 
+        }
+    });
+}, {
+    threshold: 0.5 
 });
-// Sayfa yüklendiğinde yorumları otomatik listele
+
+counters.forEach(counter => {
+    counter.innerText = "0"; 
+    observer.observe(counter);
+});
+
+
 document.addEventListener('DOMContentLoaded', function() {
     listeleYorumlarKullanici();
     listeleYorumlarAdmin();
@@ -243,7 +253,6 @@ async function getZigzagNews() {
     ticker.innerHTML = "";
 
     newsData.forEach((item, index) => {
-        // Çizimindeki gibi bir aşağı bir yukarı yapmak için mod kullanıyoruz
         const positionClass = (index % 2 === 0) ? "down" : "up";
 
         const html = `
@@ -284,6 +293,65 @@ const districtData = {
         text: "Iğdır'ın kalbi ve ekonomik merkezidir. \n (Nüfus: 152.455 | Rakım: 860m)" 
     }
 };
+
+
+/*efsane ve halk muzıgı kısmı*/
+const wrapper = document.querySelector(".culture-wrapper");
+const cards = document.querySelectorAll(".culture-card");
+const closeBtn = document.getElementById("closeBtn");
+
+const title = document.getElementById("panelTitle");
+const text = document.getElementById("panelText");
+const img1 = document.getElementById("img1");
+const img2 = document.getElementById("img2");
+
+const data = {
+    efsane: {
+        title: "Şehir Efsaneleri",
+        content: [
+            "Iğdır ve çevresinde anlatılan efsaneler yüzyıllardır sözlü kültürle aktarılmıştır.",
+            "Ağrı Dağı etrafında geçen hikâyeler oldukça ünlüdür.",
+            "Bu efsaneler doğa ve tarih ile iç içe gelişmiştir."
+        ],
+        images: ["efsane1.jpg", "efsane2.jpg"]
+    },
+
+    turku: {
+        title: "Türküler",
+        content: [
+            "Yöre türküleri aşk, gurbet ve doğa temalarını işler.",
+            "Bağlama ile söylenen ezgiler halk arasında çok yaygındır."
+        ],
+        images: ["turku1.jpg", "turku2.jpg"]
+    },
+
+    muzik: {
+        title: "Halk Müziği",
+        content: [
+            "Davul ve zurna düğünlerin vazgeçilmezidir.",
+            "Ritmik yapısıyla halkın duygularını güçlü şekilde yansıtır."
+        ],
+        images: ["muzik1.jpg", "muzik2.jpg"]
+    }
+};
+
+cards.forEach(card => {
+    card.addEventListener("click", () => {
+        const type = card.getAttribute("data-type");
+        wrapper.classList.add("active");
+        title.textContent = data[type].title;
+        text.innerHTML = data[type].content
+            .map(paragraf => `<p>${paragraf}</p>`)
+            .join("");
+
+        img1.src = data[type].images[0];
+        img2.src = data[type].images[1];
+    });
+});
+
+closeBtn.addEventListener("click", () => {
+    wrapper.classList.remove("active");
+});
 
 
 document.querySelectorAll('.district-path').forEach(path => {

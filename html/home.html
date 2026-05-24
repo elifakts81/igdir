@@ -18,6 +18,7 @@
                 <li><a href="#gecmis">Geçmisten Bugüne</a></li>
                 <li><a href="yonetim.html">Yönetim</a></li>
                 <li><a href="#tarihce">Tarihçe</a></li>
+                <li><a href="#kultur">Kültür</a></li>
                 <li><a href="#gezilecek">Gezilecek Yerler</a></li>
                 <li><a href="#mutfak">Mutfak</a></li>
                 <li><a href="#turizm">Turizm</a></li>
@@ -25,10 +26,12 @@
                 <li><a href="admin.html">Yönetim Paneli</a></li>
             </ul>
         </nav>
-</div>
   <div class="scroll-progress-container">
     <div class="scroll-progress-bar" id="progressBar"></div>
+  </div>
     </header>
+
+    
 
     <section id="anasayfa" class="hero">
         <div class="hero-content">
@@ -60,8 +63,10 @@
 <section id="nufus" class="container">
     <div class="nufus-direct-area">
         <h3 class="nufus-label">Iğdır Toplam Nüfus</h3>
-        <div class="counter" data-target="203594">0</div>
-        <p class="nufus-sub">2026 verilerine göre resmi rakamlar.</p>
+        <div class="counter" data-target="206.857">0</div>
+        <p class="nufus-sub">2025 verilerine göre resmi rakamlar.</p>
+    </div>
+</section>
 
 <section id="ilceler" class="container">
     <h2 class="section-title">Iğdır'ın İlçeleri</h2>
@@ -103,8 +108,8 @@
     </div>
 </section>
 
-        <section id="tarihce" class="container">
-    <h2 class="section-title">Iğdır'ın Tarihçesi</h2>
+<section id="tarihce" class="container">
+    <h2 class="section-title">Tarihçe</h2>
     <div class="tarihce-flex">
         <div class="history-text">
             <p> <span class="ok-isareti">&#10148;</span>Iğdır, Doğu Anadolu Bölgesi’nde yer alan ve tarih boyunca birçok medeniyete ev sahipliği yapmış önemli bir yerleşimdir. Bölgenin bilinen en eski tarihî izleri, 
@@ -125,10 +130,35 @@
             <div class="history-image">
            <img src="../gorseller/kılıclaar.png" alt="tarih">
            </div>
-
         </div>
 </section>
 
+<h2 class="section-title" id="kultur">Kültür</h2>
+<section class="culture-wrapper">
+    <!-- SOL KARTLAR -->
+    <div class="culture-cards">
+        <div class="culture-card" data-type="efsane">
+            <h3>🧿 Efsaneler</h3>
+        </div>
+        <div class="culture-card" data-type="turku">
+            <h3>🎶 Türküler</h3>
+        </div>
+        <div class="culture-card" data-type="muzik">
+            <h3>🎵 Halk Müziği</h3>
+        </div>
+    </div>
+
+    <!-- SAĞ PANEL -->
+    <div class="culture-panel" id="panel">
+       <button class="close-btn" id="closeBtn">✖</button>
+        <h2 id="panelTitle">Başlık</h2>
+        <p id="panelText">İçerik burada görünecek...</p>
+        <div class="panel-images">
+            <img id="img1" src="" alt="">
+            <img id="img2" src="" alt="">
+        </div>
+    </div>
+</section>
 
 
     <section id="gezilecek" class="container">
@@ -320,7 +350,7 @@
 
             <div class="mutfak-item">
                 <div class="text-area">
-                    <h3>Bağa Yaprak Sarması</h3>
+                    <h3>Bağa Yaprak Sarması ;</h3>
                     <p><span class="ok-isareti">&#10148;</span>Bağa yaprağı veya sinir otu,Iğdır’da aynı diğer bitki yaprakları gibi salamura hali de bulunmakta ve tüketilmektedir. Bağa yaprağının ilginç bir özelliği ise eski zamanlardan itibaren açık yaraların tedavisinde kullanılmasıdır. Özellikle çocukların ufak yaralanmalarında bağa yapraklarını çiğnenerek yara üstüne kapatılır ya da ezilerek merhem şeklinde sürülür.</p>
                 </div>
                 <div class="image-area">
@@ -331,9 +361,6 @@
         </div>
     </div>
 </section>
-
-
-    <button onclick="topFunction()" id="backToTop" title="Yukarı Çık">↑</button>
     <!-- Yorum Bölümü -->
 <section id="yorumlar" class="comment-section">
     <h2>Ziyaretçi Yorumları</h2>
@@ -354,6 +381,7 @@
         <p>&copy; 2026 Iğdır Şehir Rehberi. Tüm Hakları Saklıdır.</p>
     </footer>
 
+<button id="topBtn" class="top-btn">⬆</button>
     <script src="../js/home.js"></script>
 </body>
 </html>
