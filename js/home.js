@@ -306,44 +306,107 @@ const img1 = document.getElementById("img1");
 const img2 = document.getElementById("img2");
 
 const data = {
-    efsane: {
-        title: "Şehir Efsaneleri",
+    elsanatlari: {
+        title: "Geleneksel El Sanatları",
         content: [
-            "Iğdır ve çevresinde anlatılan efsaneler yüzyıllardır sözlü kültürle aktarılmıştır.",
-            "Ağrı Dağı etrafında geçen hikâyeler oldukça ünlüdür.",
-            "Bu efsaneler doğa ve tarih ile iç içe gelişmiştir."
+            "Kilim",
+            "Keçe",
+            "Kafkas Halıları",
+            "Karabağ Kilimleri",   
         ],
-        images: ["efsane1.jpg", "efsane2.jpg"]
+        images: ["../gorseller/hali.png", "../gorseller/halı.png"]
     },
 
     turku: {
         title: "Türküler",
         content: [
-            "Yöre türküleri aşk, gurbet ve doğa temalarını işler.",
-            "Bağlama ile söylenen ezgiler halk arasında çok yaygındır."
+            "Iğdır’ın türküleri kimi zaman bizlere sevdaları, kimi zaman kahramanlıkları kimi zaman ise yaşanılan döneme dair izleri sunmaktadır. İşte o türüklerden birkaçı:",
+            "Al Alma Allanıpdı",
+            "Aman Avcı Vurma Beni",
+            "Asker Olup Vatana",
+            "Ben Bir Avuç Darı Olup",
+            "Durnam Gelir Katar Katar",
+            "Gız Yağlığın Kim Apardı",
+            "Iğdır’ın Al Alması",
+            "Iğdır’ın Yolları Daşdı",
+            "Mezarsannıh İbrahim’i N’eyledin",
+            "Öldürdüler Bey Derviş’i",
+            "Turnam Gider Olsan Bizim Ellere",
+            "Üzerliyim Çaddasın",
         ],
-        images: ["turku1.jpg", "turku2.jpg"]
+        images: ["../gorseller/turkuler.jpg", "../gorseller/türküü.jpg"]
     },
 
-    muzik: {
-        title: "Halk Müziği",
+    efsane: {
+        title: "Efsaneler",
         content: [
-            "Davul ve zurna düğünlerin vazgeçilmezidir.",
-            "Ritmik yapısıyla halkın duygularını güçlü şekilde yansıtır."
+            "Şahmaran Efsanesi:",
+            "Iğdır’ın Melekli Kasabası Kültepe Deliktaş mevkiinde geçen Şahmaran efsanesi, yöre halkı arasında çok bilinir. Buna göre, yılanların şahı olan Şahmaran gözleri kilometrelerce uzağı görebilen ve üstün niteliklere sahip bir yaratık olarak tanımlanır. Hikâyeye göre genç bir delikanlı olan Atabey, bir gün Şahmaran tepe etrafında yürürken bir kuyuya düşer ve burada yılanlar tarafından Şahmaran’a götürülür. Şahmaran, Atabey’in cesur ve yakışıklı oluşuna hayran kalır ve onu affeder. Zamanla Atabey serbest bırakılmak ister, fakat Şahmaran başta bunu reddeder. Efsane, padişahın amansız hastalığı ve Şahmaran’ın bilgeliğini ve gücünü konu alan dramatik olaylarla devam eder, sonunda Atabey bir yandan Şahmaran’dan öğrendiklerini sahiplenerek insanlara fayda sağlar ",
+            "Ağrı Dağı Efsanesi:",
+            "Iğdır’ın en ünlü simgesi olan Ağrı Dağı, birçok efsaneye konu olmuştur. Bunlardan en meşhuru Nuh’un Gemisi efsanesidir. İncil, Tevrat, Kur’an ve Sümer destanı Gılgamış’ta geçen tufan sonrası Nuh’un gemisinin Ağrı Dağı’na oturduğu inanışı bu efsaneyi oluşturur. Ayrıca halk arasında dağla ilgili zulme ve kötülüğe karşı öfkelenmesi şeklinde anlatılan yerel efsaneler bulunmaktadır ",
+            "Diğer Yerel Efsaneler:",
+            "Karacaoğlan Efsanesi:",
+            "Ünlü halk şairi Karacaoğlan’ın Iğdır’da yaşadığı dönemi konu alır ve söylenen hikâyeler yörenin edebi mirasını yansıtır.",
+            "Asenevler Efsanesi:",
+            "Yedi Kardeşler olarak bilinen efsanevi bir hikâyeyi içerir ve Asenevler köyü ile ilişkilendirilir.",
+            "Cızırdaklı Efsanesi:",
+            "Cızırdaklı köyünde dolaşan ve Büyük Ağrı çevresinde geçen efsaneleri kapsar.",
+            
         ],
-        images: ["muzik1.jpg", "muzik2.jpg"]
-    }
+        images: ["../gorseller/sahmeran.jpg", "../gorseller/ag.jpg"]
+    },
+
+    halkoyunlari: {
+        title: "Halk Oyunları ve Yöresel Kıyafetler",
+        content: [
+            "Iğdır’ın Yöresel Kıyafetleri çevre yöreler ile benzerlik göstermekte olup başlıca giyilen kıyafetler:",
+            "kaftan",
+            "şalvar", 
+            "kemer", 
+            "poplin gömlek", 
+            "yün kalpak", 
+            "deri çizmedir.",
+            "Iğdır’ın halk oyunlarına bakıldığında ise:",
+            "Maral Oyunu",
+            "Gelin Havası",
+            "Şeyh Şamil Oyunu",
+            "Kıskanç",
+            "Vağzalı",
+            "Gazağı",
+            "Tamara ' dır",
+        ],
+            images: ["../gorseller/kafkas.png", "../gorseller/oyun.png"]
+    },
 };
+
+cards.forEach(card => {
+    card.addEventListener("click", () => {
+        cards.forEach(c => c.classList.remove("active-card"));
+        card.classList.add("active-card");
+
+    });
+
+});
 
 cards.forEach(card => {
     card.addEventListener("click", () => {
         const type = card.getAttribute("data-type");
         wrapper.classList.add("active");
         title.textContent = data[type].title;
+        
         text.innerHTML = data[type].content
-            .map(paragraf => `<p>${paragraf}</p>`)
+            .map(paragraf => {
+                // Eğer metin iki nokta üst üste ile bitiyorsa veya başlık niteliğindeyse kalın yapalım
+                if (paragraf.endsWith(":") || paragraf === "Geleneksel El Sanatları" || paragraf.includes("Efsanesi:")) {
+                    return `<h4 style="margin-top: 12px; margin-bottom: 6px; font-weight: bold; color: #1a365d;">${paragraf}</h4>`;
+                }
+                // Normal maddelerin başına ok işareti ekleyelim
+                return `<p style="margin-left: 15px; margin-bottom: 5px;">➤ ${paragraf}</p>`;
+            })
             .join("");
 
+        img1.style.display = "block";
+        img2.style.display = "block";
         img1.src = data[type].images[0];
         img2.src = data[type].images[1];
     });
@@ -367,6 +430,8 @@ document.querySelectorAll('.district-path').forEach(path => {
         document.getElementById('list-' + id).classList.add('active-list-item');
     });
 });
+
+
 
 // Sayfadaki tüm elementler tamamen yüklendikten sonra kodu çalıştırır
 window.addEventListener('DOMContentLoaded', () => {
