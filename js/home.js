@@ -417,6 +417,60 @@ closeBtn.addEventListener("click", () => {
 });
 
 
+/*galeri kısmı*/
+document.querySelectorAll('.carousel').forEach(carousel => {
+    const track = carousel.querySelector('.carousel-track');
+    const slides =
+        carousel.querySelectorAll('.slide-item');
+    const prevBtn =
+        carousel.querySelector('.prev-btn');
+    const nextBtn =
+        carousel.querySelector('.next-btn');
+
+    let currentIndex = 0;
+    // ölçüler
+    const slideWidth = 300;
+    // aktif merkez
+    function updateCarousel(){
+    slides.forEach(slide => {
+            slide.classList.remove('active');
+        });
+        slides[currentIndex]
+            .classList.add('active');
+        // ORTALAMA
+        const offset =
+            (-currentIndex * slideWidth)
+            + (window.innerWidth / 2)
+            - (slideWidth / 2);
+
+        track.style.transform =
+            `translateX(${offset}px)`;
+    }
+    // SAĞ
+    nextBtn.addEventListener('click', () => {
+        currentIndex++;
+        // sonsuz döngü
+        if(currentIndex >= slides.length){
+            currentIndex = 0;
+        }
+        updateCarousel();
+    });
+
+    // SOL
+    prevBtn.addEventListener('click', () => {
+        currentIndex--;
+        // sonsuz döngü
+        if(currentIndex < 0){
+         currentIndex = slides.length - 1;
+        }
+        updateCarousel();
+    });
+
+    updateCarousel();
+
+});
+/*bıtıs*/
+
 document.querySelectorAll('.district-path').forEach(path => {
     path.addEventListener('mouseenter', function() {
         const id = this.id;
@@ -430,7 +484,6 @@ document.querySelectorAll('.district-path').forEach(path => {
         document.getElementById('list-' + id).classList.add('active-list-item');
     });
 });
-
 
 
 // Sayfadaki tüm elementler tamamen yüklendikten sonra kodu çalıştırır
